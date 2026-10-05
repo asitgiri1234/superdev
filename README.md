@@ -241,6 +241,12 @@ Good luck.
 
 ![Bug 2, page 2](handwritten/bug2-page2.jpg)
 
+### Bug 3: Artificial delay
+
+![Bug 3, page 1](handwritten/bug3-page1.jpg)
+
+![Bug 3, page 2](handwritten/bug3-page2.jpg)
+
 ### Bug 4: Bad input crashing the API
 
 ![Bug 4, page 1](handwritten/bug4-page1.jpg)
