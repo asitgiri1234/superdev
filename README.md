@@ -224,3 +224,13 @@ After we review your submission, we will schedule a short call. Be ready to disc
 This codebase has issues at multiple levels — some obvious, some subtle, some that are really future risks rather than current bugs. **You are not expected to find or fix everything.** Focus on what you believe is highest value, explain your reasoning, and stop when the timebox is up.
 
 Good luck.
+
+---
+
+## Handwritten notes
+
+### Bug 1: Search query grouping
+
+![Bug 1, page 1](handwritten/bug1-page1.jpg)
+
+![Bug 1, page 2](handwritten/bug1-page2.jpg)
