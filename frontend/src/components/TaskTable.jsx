@@ -1,10 +1,10 @@
 export default function TaskTable({ tasks, loading, error }) {
-  if (loading) {
-    return <div className="state-message">Loading tasks...</div>;
-  }
-
   if (error) {
     return <div className="state-message error">Error: {error}</div>;
+  }
+
+  if (loading) {
+    return <div className="state-message">Loading tasks...</div>;
   }
 
   if (!tasks || tasks.length === 0) {

@@ -9,9 +9,20 @@ export default function App() {
   const [status, setStatus] = useState('');
   const [page, setPage] = useState(1);
 
-  const { tasks, total, loading, error } = useTasks(query, status, page, 10);
+  const pageSize = 10;
+  const { tasks, total, loading, error } = useTasks(query, status, page, pageSize);
 
-  const totalPages = Math.ceil(total / 10);
+  const totalPages = Math.ceil(total / pageSize);
+
+  function updateQuery(nextQuery) {
+    setQuery(nextQuery);
+    setPage(1);
+  }
+
+  function updateStatus(nextStatus) {
+    setStatus(nextStatus);
+    setPage(1);
+  }
 
   return (
     <div className="app">
@@ -21,8 +32,8 @@ export default function App() {
       </header>
 
       <div className="controls">
-        <SearchBar value={query} onChange={setQuery} />
-        <StatusFilter value={status} onChange={setStatus} />
+        <SearchBar value={query} onChange={updateQuery} />
+        <StatusFilter value={status} onChange={updateStatus} />
       </div>
 
       <TaskTable tasks={tasks} loading={loading} error={error} />

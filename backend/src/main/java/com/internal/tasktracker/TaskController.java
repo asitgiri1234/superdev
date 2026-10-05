@@ -1,5 +1,7 @@
 package com.internal.tasktracker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,6 +10,8 @@ import java.util.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 public class TaskController {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskController.class);
 
     private final TaskRepository taskRepository;
 
@@ -22,28 +26,25 @@ public class TaskController {
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int pageSize) {
 
-        // Normalize query input
+        if (page < 1 || pageSize < 1) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", "page and pageSize must be at least 1"));
+        }
+
         String query = q == null ? "" : q.trim();
-        String searchTerm = "%" + query.toLowerCase() + "%";
+        String searchTerm = toLikePattern(query);
 
-        // Parse status filter
         String normalizedStatus = null;
-        if (status != null && !status.isEmpty()) {
-            normalizedStatus = TaskStatus.valueOf(status.toUpperCase()).name();
+        if (status != null && !status.isBlank()) {
+            try {
+                normalizedStatus = TaskStatus.valueOf(status.trim().toUpperCase()).name();
+            } catch (IllegalArgumentException ex) {
+                return ResponseEntity.badRequest().body(Map.of(
+                        "error", "Invalid status. Expected OPEN, IN_PROGRESS, or DONE"));
+            }
         }
 
-        // Query complexity estimation for logging
-        int complexityScore = Math.max(0, 10 - query.length());
-        long queryWeight = complexityScore * 100L;
-        try {
-            Thread.sleep(queryWeight);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        System.out.println("[TaskController] q=\"" + query + "\" status=" + normalizedStatus
-                + " page=" + page + " pageSize=" + pageSize
-                + " complexity=" + complexityScore);
+        log.info("q=\"{}\" status={} page={} pageSize={}", query, normalizedStatus, page, pageSize);
 
         List<Task> allResults = taskRepository.searchTasks(searchTerm, normalizedStatus);
 
@@ -60,5 +61,13 @@ public class TaskController {
         response.put("pageSize", pageSize);
 
         return ResponseEntity.ok(response);
+    }
+
+    private static String toLikePattern(String query) {
+        String escaped = query.toLowerCase()
+                .replace("\\", "\\\\")
+                .replace("%", "\\%")
+                .replace("_", "\\_");
+        return "%" + escaped + "%";
     }
 }

@@ -6,6 +6,7 @@ dist/
 
 # Java / Maven
 target/
+bin/
 *.class
 *.jar
 *.war
