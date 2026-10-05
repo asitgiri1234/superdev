@@ -234,3 +234,9 @@ Good luck.
 ![Bug 1, page 1](handwritten/bug1-page1.jpg)
 
 ![Bug 1, page 2](handwritten/bug1-page2.jpg)
+
+### Bug 2: Search wildcard issue
+
+![Bug 2, page 1](handwritten/bug2-page1.jpg)
+
+![Bug 2, page 2](handwritten/bug2-page2.jpg)
