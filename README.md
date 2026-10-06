@@ -252,3 +252,9 @@ Good luck.
 ![Bug 4, page 1](handwritten/bug4-page1.jpg)
 
 ![Bug 4, page 2](handwritten/bug4-page2.jpg)
+
+### Bug 5: Wrong task list
+
+![Bug 5, page 1](handwritten/bug5-page1.jpg)
+
+![Bug 5, page 2](handwritten/bug5-page2.jpg)
